@@ -17,7 +17,7 @@ export default function Chat({ callBack, chatName, currentMessage, user, setStom
   }
 
   function onError(error) {
-    // console.log(error);
+    console.log(error);
   }
   function onMessageReceived(payload) {
     const body = JSON.parse(payload.body);
