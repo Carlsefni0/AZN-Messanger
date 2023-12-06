@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import SideBar from "./Workspace/SideBar";
 import NoChat from "./Workspace/NoChat";
@@ -7,6 +8,8 @@ function WorkSpace({ user }) {
   const [chats, setChats] = useState([]);
   const [isChatChosen, setIsChatChosen] = useState(false);
   const [currentMessage, setCurrentMessage] = useState();
+  const [stompClientToLift, setStompClientToLift] = useState();
+  const [messages, setMessages] = useState();
 
   useEffect(() => {
     async function getChats() {
@@ -18,8 +21,7 @@ function WorkSpace({ user }) {
           },
           body: JSON.stringify({ userId: 6 }),
         };
-
-        const response = await fetch("http://25.29.145.192:8080/api/v1/user/getAll", fetchParameters);
+        const response = await fetch("http://25.19.237.83:8080/api/v1/user/getAll", fetchParameters);
 
         if (response.ok) {
           const uploadedChats = await response.json();
@@ -38,10 +40,10 @@ function WorkSpace({ user }) {
 
   return (
     <div className="w-screen h-screen bg-slate-300">
-      <h1 className="text-4xl pt-[20px] text-center text-slate-700">{`Hi! ${user}`}</h1>
+      <h1 className="text-4xl pt-[20px] text-center text-slate-700">{`Hi! ${user.login}`}</h1>
       <div className={`flex ${!isChatChosen ? "gap-60" : "gap-40"}`}>
-        <SideBar chatsArray={chats} callBack={setIsChatChosen} currentMessage={currentMessage} user={user} />
-        {!isChatChosen ? <NoChat /> : <Conversation setCurrentMessage={setCurrentMessage} />}
+        <SideBar chatsArray={chats} callBack={setIsChatChosen} currentMessage={currentMessage} setStompClientToLift={setStompClientToLift} setMessages={setMessages} user={user} />
+        {!isChatChosen ? <NoChat /> : <Conversation setCurrentMessage={setCurrentMessage} stompClientToLift={stompClientToLift} messages={messages} />}
       </div>
     </div>
   );
