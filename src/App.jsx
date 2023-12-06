@@ -5,7 +5,7 @@ import WorkSpace from "./Components/WorkSpace";
 import { useState } from "react";
 
 function App() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({ login: "", id: 0 });
   console.log(user);
 
   return (
@@ -15,8 +15,6 @@ function App() {
         <Route path="/WorkSpace" element={<WorkSpace user={user} />} />
       </Routes>
     </Router>
-    // <LogIn />
-    // <WorkSpace />
   );
 }
 export default App;
