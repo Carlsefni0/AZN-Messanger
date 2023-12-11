@@ -6,7 +6,6 @@ import { useState } from "react";
 
 function App() {
   const [user, setUser] = useState({ login: "", id: 0 });
-  console.log(user);
 
   return (
     <Router>
